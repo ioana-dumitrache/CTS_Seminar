@@ -1,5 +1,8 @@
 package ro.ase.cts;
 
+import ro.ase.cts.exceptions.IllegalTransferException;
+import ro.ase.cts.exceptions.InsufficientFundsException;
+
 public class CurrentAccount extends BankAccount {
 
 	public static double MAX_CREDIT=1000;
@@ -22,18 +25,32 @@ public class CurrentAccount extends BankAccount {
 	}
 
 	@Override
-	public void withdraw(double amount) {
+	public void withdraw(double amount)throws InsufficientFundsException {
 		// TODO Auto-generated method stub
+		if(this.balance>=amount)
+		{
+			this.balance-=amount;
+		
+		}
+		else
+		{
+			throw new InsufficientFundsException("fonduri insuficiente!");
+		}
 		
 	}
 
 	@Override
-	public void transfer(double amount, Account destination) {
+	public void transfer(double amount, Account destination)throws IllegalTransferException, InsufficientFundsException {
 		// TODO Auto-generated method stub
-		
+		if(((BankAccount)destination).iban.equals(this.iban))
+		{
+			throw new IllegalTransferException("transfer ilegal!");
+		}
+		else
+		{
+			this.withdraw(amount);
+			destination.deposit(amount);
+		}
+
 	}
-
-	
-
-
 }
