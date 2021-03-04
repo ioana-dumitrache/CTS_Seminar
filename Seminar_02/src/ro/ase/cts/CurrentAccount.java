@@ -18,7 +18,7 @@ public class CurrentAccount extends BankAccount {
 	public void deposit(double amount) {
 		// TODO Auto-generated method stub
 		this.setBalance(getbalance()+amount);
-		this.balance+=amount;
+		this.balance+=amount;  
 	}
 
 	@Override
