@@ -7,6 +7,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Bank b=new Bank();
+		BankAccount ba=b.openBankAccount(AccountType.CURRENT);
+		SavingAccount sa=new SavingAccount(300, "IBAN3");
 		CurrentAccount ca=new CurrentAccount(800, "IBAN");
 		CurrentAccount ca2=new CurrentAccount(600, "IBAN2");
 		System.out.println("suma disponibila este:"+ ca.getbalance());
@@ -22,6 +25,9 @@ public class Main {
 		} 
 		System.out.println("suma disponibila este:"+ ca.getbalance());
 		System.out.println("suma disponibila din contul 2 este: "+ca2.getbalance());
+		System.out.println("suma disponibila din contul 3 este: "+sa.getbalance());
+		sa.addInterest(100);
+		System.out.println("suma disponibila din contul 3 este: "+sa.getbalance());
 	}
 	
 
