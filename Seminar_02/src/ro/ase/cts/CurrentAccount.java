@@ -2,10 +2,15 @@ package ro.ase.cts;
 
 import ro.ase.cts.exceptions.IllegalTransferException;
 import ro.ase.cts.exceptions.InsufficientFundsException;
+import ro.ase.cts.interfaces.Depositable;
+import ro.ase.cts.interfaces.NotificationService;
+import ro.ase.cts.interfaces.Transferable;
+import ro.ase.cts.interfaces.Withdrawable;
 
-public class CurrentAccount extends BankAccount {
+public class CurrentAccount extends BankAccount implements Depositable, Withdrawable, Transferable, NotificationService {
 
 	public static double MAX_CREDIT=1000;
+	public NotificationService notificationService;
 	public CurrentAccount() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -15,6 +20,17 @@ public class CurrentAccount extends BankAccount {
 		super(balance, iban);
 
 		// TODO Auto-generated constructor stub
+	}
+	
+
+	
+
+	public NotificationService getNotificationService() {
+		return notificationService;
+	}
+
+	public void setNotificationService(NotificationService notificationService) {
+		this.notificationService = notificationService;
 	}
 
 	@Override
@@ -36,11 +52,12 @@ public class CurrentAccount extends BankAccount {
 		{	
 			throw new InsufficientFundsException("fonduri insuficiente!");
 		}
-		
+		if(this.notificationService!=null)
+		this.notificationService.sendNotificationService("S-a extras o anumita suma"+amount);
 	}
 
 	@Override
-	public void transfer(double amount, Account destination)throws IllegalTransferException, InsufficientFundsException {
+	public void transfer(double amount, Depositable destination)throws IllegalTransferException, InsufficientFundsException {
 		// TODO Auto-generated method stub
 		if(((BankAccount)destination).iban.equals(this.iban))
 		{
@@ -49,8 +66,14 @@ public class CurrentAccount extends BankAccount {
 		else
 		{
 			this.withdraw(amount);
-			destination.deposit(amount);
+			((Depositable) destination).deposit(amount);
 		}
 
+	}
+
+	@Override
+	public void sendNotificationService(String message) {
+		// TODO Auto-generated method stub
+		
 	}
 }

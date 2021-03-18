@@ -2,9 +2,12 @@ package ro.ase.cts;
 
 import ro.ase.cts.exceptions.IllegalTransferException;
 import ro.ase.cts.exceptions.InsufficientFundsException;
+import ro.ase.cts.interfaces.Depositable;
 import ro.ase.cts.interfaces.Profitable;
+import ro.ase.cts.interfaces.Transferable;
+import ro.ase.cts.interfaces.Withdrawable;
 
-public class SavingAccount extends BankAccount implements Profitable{
+public class SavingAccount extends BankAccount implements Profitable, Depositable, Withdrawable, Transferable{
 
 	public SavingAccount() {
 		super();
@@ -20,6 +23,7 @@ public class SavingAccount extends BankAccount implements Profitable{
 	public void deposit(double amount) {
 		// TODO Auto-generated method stub
 		this.balance+=amount;
+		//throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -30,7 +34,7 @@ public class SavingAccount extends BankAccount implements Profitable{
 	}
 
 	@Override
-	public void transfer(double amount, Account destination)
+	public void transfer(double amount, Depositable destination)
 			throws IllegalTransferException, InsufficientFundsException {
 		// TODO Auto-generated method stub
 		

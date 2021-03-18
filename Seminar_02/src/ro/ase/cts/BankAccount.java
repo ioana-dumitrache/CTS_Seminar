@@ -25,7 +25,13 @@ public abstract class BankAccount extends Account {
 		this.balance = balance;
 	}
 
+	public String getIban() {
+		return iban;
+	}
 
-	
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
 	
 }
