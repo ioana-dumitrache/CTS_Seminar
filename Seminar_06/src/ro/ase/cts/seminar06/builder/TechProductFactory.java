@@ -8,34 +8,50 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 public abstract class TechProductFactory extends AbstractProductFactory{
 	@Override
-	public Product makeProduct() throws UnsupportedOperationException {
-		return new TechProduct("generic");
+	public Product makeProduct(int id) throws UnsupportedOperationException {
+		ArrayList<String> records=readRecordsFromFile("tech+products.csv");
+		for(String record: records)
+		{
+			String[] productAttributes = record.split(",");
+			if(Integer.valueOf(productAttributes[0]) == id) {
+				TechProduct.TechProductBuilder productBuilder =new TechProduct.TechProductBuilder(id);
+				return productBuilder.setName(productAttributes[1])
+				.setManufactorer(productAttributes[2])
+				.setModel(productAttributes[3])
+				.setPrice(Float.valueOf(productAttributes[5]))
+				.getProduct();
+			} 
+		}
+		return new TechProduct.TechProductBuilder(id).getProduct();
 	}
 
 	@Override
 	public String getCatalog() {		
-		ArrayList<String>records=readRecordsFromFile("tech_product.csv");
-		StringBuilder builder=new StringBuilder();
-		for(String record:records)
-		{
-				String[]productAtributes=record.split(",");
-				builder.append(productAtributes[0]+ " . ");
-				builder.append(productAtributes[1]+" . ").append(productAtributes[2]+" . ").append(productAtributes[3]+" \n ");
+		ArrayList<String> records= readRecordsFromFile("tech_products.csv");
+		StringBuilder builder = new StringBuilder();
+		for(String record : records) {
+			String[] productAttributes = record.split(",");
+			builder.append(productAttributes[0] + "-");
+			builder.append(productAttributes[1] + " ")
+			.append(productAttributes[2] + " ")
+			.append(productAttributes[3] + "\n");
 		}
 		return builder.toString();
 	}
-	private ArrayList<String> readRecordsFromFile(String fileName)
-	{
-		ArrayList<String> records=new ArrayList<>();
-		URL fileURL = getClass().getResource(fileName);
-		File productsFile=new File(fileURL.getPath());
+	
+	private ArrayList<String> readRecordsFromFile(String filename){
+		ArrayList<String> records = new ArrayList<String>();
+		
+		URL fileURL = getClass().getResource(filename);
+		File productFile = new File(fileURL.getPath());
+		
 		try {
-			BufferedReader reader=new BufferedReader(new FileReader(productsFile));
+			BufferedReader reader = new BufferedReader(new FileReader(productFile));
 			String line;
-			while((line=reader.readLine())!=null)
-			{
+			while((line=reader.readLine()) !=null) {
 				records.add(line);
 			}
 		} catch (FileNotFoundException e) {
@@ -45,6 +61,9 @@ public abstract class TechProductFactory extends AbstractProductFactory{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		return records;
 	}
+
 }

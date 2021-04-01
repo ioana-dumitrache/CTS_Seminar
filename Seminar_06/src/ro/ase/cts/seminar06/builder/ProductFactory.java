@@ -4,7 +4,7 @@ public Product makeProduct(String type, String productName)
 {
 		if(type.equalsIgnoreCase("tech"))
 		{
-			return new TechProduct(productName);
+			return new TechProduct.TechProductBuilder(1).getProduct();
 		}
 		else if(type.equalsIgnoreCase("office"))
 		{

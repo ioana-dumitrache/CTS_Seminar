@@ -32,7 +32,16 @@ public class Main {
 				};
 			}
 		}
-		myProduct=productFactory2.makeProduct();
+		System.out.println(productFactory2.getCatalog());
+		userPref=scan.nextLine();
+		try{
+			int selectedID=Integer.valueOf(userPref);
+			myProduct=productFactory2.makeProduct(selectedID);
+		}catch(NumberFormatException e)
+		{
+			System.err.println("Selectie invalida");
+		}
+		
 		//if(userPref.equalsIgnoreCase("tech"))
 		//{
 		//	myProduct=new TechProduct();
