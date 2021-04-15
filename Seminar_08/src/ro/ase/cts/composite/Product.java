@@ -31,7 +31,7 @@ public double getPrice() {
 @Override
 public String toString() {
 	// TODO Auto-generated method stub
-	return this.name+ this.price;
+	return this.name+ " "+this.price;
 }
 
 }

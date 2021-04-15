@@ -8,14 +8,14 @@ public class ProductCatalog extends CatalogComponent {
 	private String name;
 	public ProductCatalog(String name) {
 		super();
-		new ArrayList<CatalogComponent>(); 
+		list=new ArrayList<CatalogComponent>(); 
 		this.name = name;
 	}
 
 	@Override
 	public void add(CatalogComponent catalog) {
 		// TODO Auto-generated method stub
-		this.add(catalog);
+		this.list.add(catalog);
 	}
 
 
@@ -23,7 +23,7 @@ public class ProductCatalog extends CatalogComponent {
 	public void remove(CatalogComponent catalog) {
 		// TODO Auto-generated method stub
 		for (int i=0; i<list.size();i++) {
-			if(list.get(i).equals(catalog.getName()))
+			if(list.get(i).getName().equals(catalog.getName()))
 					list.remove(i);
 		}
 	}
@@ -37,7 +37,17 @@ public class ProductCatalog extends CatalogComponent {
 	@Override
 	public double getPrice() {
 		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException("Can't get price");
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		StringBuilder builder= new StringBuilder();
+		builder.append(this.name).append(":\n");
+		for(CatalogComponent comp: this.list)
+			builder.append(comp.toString());
+		return builder.toString();
 	}
 
 }
