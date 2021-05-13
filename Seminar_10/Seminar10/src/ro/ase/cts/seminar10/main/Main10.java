@@ -14,7 +14,7 @@ import ro.ase.cts.seminar10.strategy.MarketingStrategyInterface;
 import ro.ase.cts.seminar10.strategy.ModulMarketing;
 import ro.ase.cts.seminar10.strategy.RandomMarketingStrategy;
 
-public class Main {
+public class Main10 {
 
 	public static void main(String[] args) {
 		ModulMarketing modulMarketing=new ModulMarketing();
