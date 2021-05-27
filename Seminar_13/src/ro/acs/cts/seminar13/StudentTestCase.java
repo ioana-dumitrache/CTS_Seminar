@@ -2,6 +2,7 @@ package ro.acs.cts.seminar13;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterAll;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import ro.acs.cts.exceptions.StudentExceptionWrongValue;
 import ro.acs.cts.unittesting.Student;
@@ -66,16 +68,33 @@ class StudentTestCase {
 		}
 		assertNotNull(student);
 	}
-	@Test(expected = StudentExceptionWrongValue.class)
-	void testStudentErrorCondition()
-	{
-		try {
-		student.setVarsta(-1);
-		fail("Excpected an exception ");
-	}catch (StudentExceptionWrongValue ex)
-		{
-		
+	@Test()
+	void testStudentSetVarstaErrorCondition() {
+		assertThrows(StudentExceptionWrongValue.class, new Executable() {
+			
+			@Override
+			public void execute() throws Throwable {
+				student.setVarsta(-1);
+				
+			}
+		});
+				
 		}
+	@Test
+	void testStudentGetVarstaRight()
+	{
+		int exValue=defautlVarsta;
+		int acValue=student.getVarsta();
+		assertEquals(exValue, acValue);
 	}
-
+	
+	@Test
+	void testCalculMedieErrorCondition()
+	{
+		student.setNote(null);
+		assertThrows(StudentExceptionWrongValue.class, ()->
+		{
+			student.calculMedie();	
+		});
+	}
 }

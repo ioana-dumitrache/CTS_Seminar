@@ -32,5 +32,11 @@ public int[] getNote() {
 public void setNote(int[] note) {
 	this.note = note;
 }
+public float calculMedie() throws StudentExceptionWrongValue
+{
+	if(note==null)
+		throw new StudentExceptionWrongValue();
+	return 0f;
+}
 
 }
