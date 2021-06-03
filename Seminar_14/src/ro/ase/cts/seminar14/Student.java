@@ -2,10 +2,8 @@ package ro.ase.cts.seminar14;
 
 import ro.acs.cts.exceptions.StudentExceptionWrongValue;
 
-public class Student {
-String nume;
-int varsta;
-int[] note;
+public class Student extends StudentAbstract {
+
 public Student(String nume, int varsta, int[] note) {
 	super();
 	this.nume = nume;
